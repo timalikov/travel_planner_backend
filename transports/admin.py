@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from transports.models import TransportType
+
+admin.site.register(TransportType)

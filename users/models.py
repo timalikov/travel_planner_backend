@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -10,9 +8,9 @@ from core.models import TimeStampedModel
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, first_name="", last_name=""):
+    def create_user(self, email, password, first_name="", last_name="", **other_fields):
         email = self.normalize_email(email)
-        user = self.model(email=email, first_name=first_name, last_name=last_name)
+        user = self.model(email=email, first_name=first_name, last_name=last_name, **other_fields)
 
         if password:
             user.set_password(password)
@@ -20,12 +18,12 @@ class UserManager(BaseUserManager):
         user.save()
         return user
     
-    def create_superuser(self, email, first_name, last_name, password, **other_fields): 
+    def create_superuser(self, email, password, **other_fields): 
         other_fields.setdefault("is_active", True)
         other_fields.setdefault("is_staff", True)
         other_fields.setdefault("is_superuser", True)
 
-        return self.create_user(email=email, first_name=first_name, last_name=last_name, password=password, **other_fields)
+        return self.create_user(email=email, password=password, **other_fields)
     
     def get_by_natural_key(self, email):
         """
