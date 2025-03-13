@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-# Create your views here.
+from .models import TransportType
+from .serializers import TransportTypeSerializer
+
+class TransportTypeViewSet(viewsets.ModelViewSet):
+    queryset = TransportType.objects.all()
+    serializer_class = TransportTypeSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
