@@ -1,4 +1,5 @@
 from trips.models import UserTrip
+from rest_framework import serializers
 
 
 class UserTripSerializer(serializers.ModelSerializer):

@@ -1,7 +1,11 @@
-from django.urls import path
-from trips.views import UserTripViewSet
+from django.urls import include, path
 
+from trips.views import UserTripViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'user-trips', UserTripViewSet, basename='transport-type')
 
 urlpatterns = [
-    path('', UserTripViewSet.as_view(), name='user-trip-list'),
+    path('', include(router.urls)),
 ]
